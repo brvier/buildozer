@@ -1,4 +1,4 @@
-# Dockerfile for providing buildozer
+G# Dockerfile for providing buildozer
 #
 # Build with:
 # docker build --tag=kivy/buildozer .
@@ -60,6 +60,7 @@ RUN apt install -qq --yes --no-install-recommends \
     python3-pip \
     python3-setuptools \
     python3-wheel \
+    python3-dev \
     sudo \
     unzip \
     zip \
