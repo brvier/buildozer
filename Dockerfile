@@ -77,6 +77,5 @@ COPY --chown=user:user . ${SRC_DIR}
 
 # installs buildozer and dependencies
 RUN pip3 install --user Cython==0.29.15 ${SRC_DIR}
-RUN python3 -m pip install -U pip virtualenv
-
+RUN python3 -m pip install -U pip virtualenv flake8
 ENTRYPOINT ["buildozer"]
