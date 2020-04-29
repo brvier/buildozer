@@ -1,4 +1,4 @@
-G# Dockerfile for providing buildozer
+# Dockerfile for providing buildozer
 #
 # Build with:
 # docker build --tag=kivy/buildozer .
