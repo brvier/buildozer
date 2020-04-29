@@ -64,7 +64,8 @@ RUN apt install -qq --yes --no-install-recommends \
     sudo \
     unzip \
     zip \
-    zlib1g-dev
+    zlib1g-dev \
+    libsdl2-dev
 
 # prepares non root env
 RUN useradd --create-home --shell /bin/bash ${USER}
