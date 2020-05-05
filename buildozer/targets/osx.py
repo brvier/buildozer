@@ -35,7 +35,7 @@ class TargetOSX(Target):
         if exists(
             join(self.buildozer.platform_dir, 'kivy-sdk-packager-master')):
             self.buildozer.info(
-                    'kivy-sdk-packager found at '\
+                    'kivy-sdk-packager found at '
                 '{}'.format(self.buildozer.platform_dir))
             return
 
@@ -62,7 +62,7 @@ class TargetOSX(Target):
                 self.buildozer.info('Downloading kivy...')
                 status_code = check_output(
                     ('curl', '-L', '--write-out', '%{http_code}', '-o', 'Kivy{}.dmg'.format(py_branch),
-                    'http://kivy.org/downloads/{}/Kivy-{}-osx-python{}.dmg'\
+                    'http://kivy.org/downloads/{}/Kivy-{}-osx-python{}.dmg'
                     .format(current_kivy_vers, current_kivy_vers, py_branch)),
                     cwd=cwd)
 
@@ -114,7 +114,6 @@ class TargetOSX(Target):
 
         bc = self.buildozer.config
         bcg = bc.get
-        bcgl = bc.getlist
         package_name = bcg('app', 'package.name')
         domain = bcg('app', 'package.domain')
         title = bcg('app', 'title')
@@ -162,7 +161,7 @@ class TargetOSX(Target):
             self.buildozer.user_build_dir or
             dirname(abspath(self.buildozer.specfilename)), 'bin')
         check_output(
-            ('cp', '-a', package_name+'.dmg', binpath),
+            ('cp', '-a', package_name + '.dmg', binpath),
             cwd=cwd)
         self.buildozer.info('All Done!')
 

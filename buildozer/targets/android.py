@@ -328,13 +328,12 @@ class TargetAndroid(Target):
         import _winreg
         with _winreg.OpenKey(
                 _winreg.HKEY_LOCAL_MACHINE,
-                r"SOFTWARE\JavaSoft\Java Development Kit") as jdk:  #@UndefinedVariable
+                r"SOFTWARE\JavaSoft\Java Development Kit") as jdk:  # @UndefinedVariable
             current_version, _type = _winreg.QueryValueEx(
-                jdk, "CurrentVersion")  #@UndefinedVariable
-            with _winreg.OpenKey(jdk,
-                                 current_version) as cv:  #@UndefinedVariable
+                jdk, "CurrentVersion")  # @UndefinedVariable
+            with _winreg.OpenKey(jdk, current_version) as cv:  # @UndefinedVariable
                 java_home, _type = _winreg.QueryValueEx(
-                    cv, "JavaHome")  #@UndefinedVariable
+                    cv, "JavaHome")  # @UndefinedVariable
             self.buildozer.environ['JAVA_HOME'] = java_home
 
     def _locate_java(self, s):
@@ -375,13 +374,10 @@ class TargetAndroid(Target):
         self.buildozer.info('Android SDK is missing, downloading')
         if platform in ('win32', 'cygwin'):
             archive = 'sdk-tools-windows-{}.zip'.format(DEFAULT_SDK_TAG)
-            unpacked = 'android-sdk-windows'
         elif platform in ('darwin', ):
             archive = 'sdk-tools-darwin-{}.zip'.format(DEFAULT_SDK_TAG)
-            unpacked = 'android-sdk-macosx'
         elif platform.startswith('linux'):
             archive = 'sdk-tools-linux-{}.zip'.format(DEFAULT_SDK_TAG)
-            unpacked = 'android-sdk-linux'
         else:
             raise SystemError('Unsupported platform: {0}'.format(platform))
 
@@ -517,7 +513,6 @@ class TargetAndroid(Target):
         revision = line.split('=')[1].strip()
 
         return revision
-
 
     def _android_update_sdk(self, *sdkmanager_commands):
         """Update the tools and package-tools if possible"""
@@ -786,7 +781,6 @@ class TargetAndroid(Target):
         if local_recipes:
             options.append('--local-recipes')
             options.append(local_recipes)
-        config = self.buildozer.config
         self._p4a(
             ("create --dist_name={} --bootstrap={} --requirements={} "
              "--arch {} {}").format(
@@ -813,7 +807,6 @@ class TargetAndroid(Target):
         old_dist_dir = join(self._build_dir, 'dists', dist_name)
         if exists(old_dist_dir):
             return old_dist_dir
-        matching_dirs = glob.glob(join(self._build_dir, 'dist', '{}*'.format(dist_name)))
 
         # If no directory has been found yet, our dist probably
         # doesn't exist yet, so use the expected name
@@ -922,7 +915,7 @@ class TargetAndroid(Target):
         entrypoint = self.buildozer.config.getdefault(
             'app', 'android.entrypoint')
         if not entrypoint:
-            self.buildozer.config.set('app', 'android.entrypoint',  'org.kivy.android.PythonActivity')
+            self.buildozer.config.set('app', 'android.entrypoint', 'org.kivy.android.PythonActivity')
 
         super(TargetAndroid, self).cmd_run(*args)
 
@@ -995,11 +988,11 @@ class TargetAndroid(Target):
         # add extra libs/armeabi files in dist/default/libs/armeabi
         # (same for armeabi-v7a, arm64-v8a, x86, mips)
         for config_key, lib_dir in (
-            ('android.add_libs_armeabi', 'armeabi'),
-            ('android.add_libs_armeabi_v7a', 'armeabi-v7a'),
-            ('android.add_libs_arm64_v8a', 'arm64-v8a'),
-            ('android.add_libs_x86', 'x86'),
-            ('android.add_libs_mips', 'mips')):
+                ('android.add_libs_armeabi', 'armeabi'),
+                ('android.add_libs_armeabi_v7a', 'armeabi-v7a'),
+                ('android.add_libs_arm64_v8a', 'arm64-v8a'),
+                ('android.add_libs_x86', 'x86'),
+                ('android.add_libs_mips', 'mips')):
 
             patterns = config.getlist('app', config_key, [])
             if not patterns:
@@ -1289,10 +1282,10 @@ class TargetAndroid(Target):
         serial = environ.get('ANDROID_SERIAL')
         if serial:
             return serial.split(',')
-        l = self.buildozer.cmd('{} devices'.format(self.adb_cmd),
+        lines = self.buildozer.cmd('{} devices'.format(self.adb_cmd),
                                get_stdout=True)[0].splitlines()
         serials = []
-        for serial in l:
+        for serial in lines:
             if not serial:
                 continue
             if serial.startswith('*') or serial.startswith('List '):
