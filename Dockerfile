@@ -41,6 +41,8 @@ ENV LANG="en_US.UTF-8" \
     LANGUAGE="en_US.UTF-8" \
     LC_ALL="en_US.UTF-8"
 
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata
+
 # system requirements to build most of the recipes
 RUN apt install -qq --yes --no-install-recommends \
     autoconf \
@@ -65,7 +67,18 @@ RUN apt install -qq --yes --no-install-recommends \
     unzip \
     zip \
     zlib1g-dev \
-    libsdl2-dev
+    libsdl2-dev \
+    libssl-dev \
+    libncurses5-dev \
+    libgdbm-dev \
+    libnss3-dev \
+    libssl-dev \
+    libreadline-dev \
+    libffi-dev \
+    libsqlite3-dev \
+    wget \
+    libbz2-dev \
+    python3.8-dev
 
 # prepares non root env
 RUN useradd --create-home --shell /bin/bash ${USER}
